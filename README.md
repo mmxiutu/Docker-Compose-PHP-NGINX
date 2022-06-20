@@ -1,3 +1,5 @@
+本分支默认文档填充了树莓派仪表盘
+
 有时候我们需要创建php+nginx环境，不需要额外的套件如redis,mysql等，这时候选择docker环境是非常便捷的
 
 首先需要安装docker和docker-compose
