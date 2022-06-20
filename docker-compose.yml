@@ -1,0 +1,30 @@
+version : '3.8'
+services:
+  arm-phpfpm:
+    container_name: arm-phpfpm
+    image: php:7.4.30-fpm-buster
+    restart: unless-stopped
+    expose:
+      - "9000"
+    volumes:
+      - "./php:/usr/local/etc/php"
+      - "./nginx/html/default:/var/www/html"
+    networks:
+      - arm-web-net
+  arm-nginx:
+    container_name: arm-nginx
+    image: nginx:1.22.0
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/html/default:/usr/share/nginx/html
+      - ./nginx/logs:/var/log/nginx
+      - ./nginx/conf/vhost:/etc/nginx/conf.d
+    links:
+      - arm-phpfpm
+    networks:
+      - arm-web-net
+networks:
+  arm-web-net:
